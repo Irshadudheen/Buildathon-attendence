@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Attendance Submitted Successfully">
+    <title>Success - Buildathon Attendance</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="confirmation-page">
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="success-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="38" stroke="#10b981" stroke-width="4" fill="none" />
+                    <path d="M25 40L35 50L55 30" stroke="#10b981" stroke-width="4" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+
+            <h1>Attendance Submitted Successfully!</h1>
+
+            <div class="confirmation-details" id="confirmationDetails">
+                <p><strong>Date:</strong> <span id="submittedDate">-</span></p>
+                <p><strong>Total Participants:</strong> <span id="totalParticipants">-</span></p>
+                <p><strong>Present:</strong> <span id="presentParticipants">-</span></p>
+                <p><strong>Absent:</strong> <span id="absentParticipants">-</span></p>
+            </div>
+
+            <div class="confirmation-actions">
+                <button id="backToDashboard" class="btn btn-primary">
+                    Back to Dashboard
+                </button>
+                <button id="markAnother" class="btn btn-secondary">
+                    Mark Another Date
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { isAuthenticated } from './js/auth.js';
+        import { formatDate } from './js/utils.js';
+
+        // Check authentication
+        if (!isAuthenticated()) {
+            window.location.href = 'index.html';
+        }
+
+        // Get submission data from sessionStorage
+        const submissionData = JSON.parse(sessionStorage.getItem('lastSubmission') || '{}');
+
+        if (submissionData.date) {
+            document.getElementById('submittedDate').textContent = formatDate(submissionData.date);
+            document.getElementById('totalParticipants').textContent = submissionData.total || 0;
+            document.getElementById('presentParticipants').textContent = submissionData.present || 0;
+            document.getElementById('absentParticipants').textContent = submissionData.absent || 0;
+        } else {
+            // No submission data, redirect to dashboard
+            window.location.href = 'dashboard.html';
+        }
+
+        // Button handlers
+        document.getElementById('backToDashboard').addEventListener('click', () => {
+            sessionStorage.removeItem('lastSubmission');
+            window.location.href = 'dashboard.html';
+        });
+
+        document.getElementById('markAnother').addEventListener('click', () => {
+            sessionStorage.removeItem('lastSubmission');
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+
+</html>

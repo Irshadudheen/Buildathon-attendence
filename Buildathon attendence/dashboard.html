@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Buildathon Attendance Dashboard - Mark Daily Attendance">
+    <title>Dashboard - Buildathon Attendance</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="dashboard-page">
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <h1>Buildathon Attendance</h1>
+                <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-main">
+        <div class="container">
+            <div class="dashboard-controls">
+                <div class="date-selector">
+                    <label for="attendanceDate">Select Date:</label>
+                    <input type="date" id="attendanceDate" name="attendanceDate" min="2025-12-26">
+                </div>
+
+                <div class="stats-summary" id="statsSummary">
+                    <span class="stat-item">
+                        <strong>Total:</strong> <span id="totalCount">0</span>
+                    </span>
+                    <span class="stat-item">
+                        <strong>Present:</strong> <span id="presentCount">0</span>
+                    </span>
+                    <span class="stat-item">
+                        <strong>Absent:</strong> <span id="absentCount">0</span>
+                    </span>
+                </div>
+            </div>
+
+            <div id="loadingIndicator" class="loading-indicator hidden">
+                <div class="spinner"></div>
+                <p>Loading participants...</p>
+            </div>
+
+            <div id="errorContainer" class="error-container hidden"></div>
+
+            <div id="participantsContainer" class="participants-container">
+                <div class="participants-header">
+                    <h2>Participants</h2>
+                    <div class="bulk-actions">
+                        <button id="markAllPresent" class="btn btn-sm">Mark All Present</button>
+                        <button id="markAllAbsent" class="btn btn-sm">Mark All Absent</button>
+                    </div>
+                </div>
+
+                <div id="participantsList" class="participants-list">
+                    <!-- Participants will be loaded here dynamically -->
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button id="submitAttendance" class="btn btn-primary btn-lg" disabled>
+                    <span class="btn-text">Submit Attendance</span>
+                    <span class="btn-loader hidden"></span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+
+</html>
